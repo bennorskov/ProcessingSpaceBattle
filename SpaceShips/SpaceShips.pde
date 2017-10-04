@@ -1,51 +1,56 @@
-Ship s;
-scrollBG bg;
+Ship player;
+scrollBG background;
 Boolean[] keyWasPressed = new Boolean[127];
 
-int lastDroppedLineTime = 0;
 // –––––––––– // –––––––––– // –––––––––– SETUP
 void setup() {
   size(600, 900);
   colorMode(HSB, 360, 100, 100);
-  s = new Ship();
+  player = new Ship();
   for (int i = 0; i<keyWasPressed.length; i++) {
     keyWasPressed[i] = false;
   }
-  bg = new scrollBG();
+  background = new scrollBG();
 }
 // –––––––––– // –––––––––– // –––––––––– DRAW
 void draw() {
-  bg.displayupdate(s.effectLevel);
-  s.display();
-  s.update();
+  background.displayupdate(2);
+  player.display();
+  player.update();
   handleKeys();
-  timeLines();
+  checkBulletHits();
 }
+
+// –––––––––– // –––––––––– // –––––––––– BULLET HANDLING
+void spawnBullet() {}
+void checkBulletHits() {}
 
 // –––––––––– // –––––––––– // –––––––––– KEY HANDLING
 void keyPressed() {
-  //      println(keyCode);
+        println(keyCode);
   keyWasPressed[keyCode] = true;
 }
 void keyReleased() {
   keyWasPressed[keyCode] = false;
 }
-
 void handleKeys() {
   for (int i = 0; i<keyWasPressed.length; i++) {
     if (keyWasPressed[i]) {
       switch (i) {
       case LEFT:
-        s.moveLeft();
+        player.moveLeft();
         break;
       case RIGHT:
-        s.moveRight();
+        player.moveRight();
         break;
       case UP:
-        s.moveUp();
+        player.moveUp();
         break;
       case DOWN:
-        s.moveDown();
+        player.moveDown();
+        break;
+      case 32: //spacebar
+        spawnBullet();
         break;
       }
     }

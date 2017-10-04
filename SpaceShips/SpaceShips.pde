@@ -2,6 +2,9 @@ Ship player;
 scrollBG background;
 Boolean[] keyWasPressed = new Boolean[127];
 
+ArrayList<Bullet> bullets = new ArrayList();
+ArrayList<Enemy> enemies = new ArrayList();
+
 // –––––––––– // –––––––––– // –––––––––– SETUP
 void setup() {
   size(600, 900);
@@ -14,7 +17,7 @@ void setup() {
 }
 // –––––––––– // –––––––––– // –––––––––– DRAW
 void draw() {
-  background.displayupdate(2);
+  background.displayupdate(3);
   player.display();
   player.update();
   handleKeys();
@@ -22,16 +25,28 @@ void draw() {
 }
 
 // –––––––––– // –––––––––– // –––––––––– BULLET HANDLING
-void spawnBullet() {}
-void checkBulletHits() {}
+void spawnBullet() {
+  bullets.add( new Bullet(player.pos.x, player.pos.y));
+}
+void checkBulletHits() {
+  for( int i = bullets.size()-1; i>=0; i--) {
+    Bullet b = bullets.get(i);
+    b.move();
+    b.display();
+    //remove bullets off screen
+    if (b.pos.y < -b.hitBoxWidth) {
+      bullets.remove(i);
+    }
+  }
+}
 
 // –––––––––– // –––––––––– // –––––––––– KEY HANDLING
 void keyPressed() {
-        println(keyCode);
-  keyWasPressed[keyCode] = true;
+  //      println(keyCode);
+  if (keyCode < 127) keyWasPressed[keyCode] = true;
 }
 void keyReleased() {
-  keyWasPressed[keyCode] = false;
+  if (keyCode < 127) keyWasPressed[keyCode] = false;
 }
 void handleKeys() {
   for (int i = 0; i<keyWasPressed.length; i++) {

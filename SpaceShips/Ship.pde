@@ -2,8 +2,8 @@ class Ship {
   PVector pos, speed, acc;
   float FRICTION = .97;
   float ACC_AMOUNT = .5;
-  int effectRange = 25;
-  int effectLevel = 0;
+  PImage shipGraphix = new PImage();
+  
   // –––––––––– // –––––––––– // –––––––––– CONSTRUCTOR
   Ship() {
     pos = new PVector(width/2, 650);
@@ -12,17 +12,21 @@ class Ship {
   }
   // –––––––––– // –––––––––– // –––––––––– DISPLAY
   void display() {
-    //draw styles
-    fill(255);
-    noStroke();
     //actual drawing
     pushMatrix();
     translate(pos.x, pos.y);
-    beginShape();
-    vertex(0, -20);
-    vertex(8, 15);
-    vertex(-8, 15);
-    endShape(CLOSE);
+    if (!shipGraphix.isLoaded()) {
+      //draw styles
+      fill(255);
+      noStroke();
+      beginShape();
+      vertex(0, -20);
+      vertex(8, 15);
+      vertex(-8, 15);
+      endShape(CLOSE);
+    } else {
+      image(shipGraphix, 0, 0);
+    }
     popMatrix();
   }
   

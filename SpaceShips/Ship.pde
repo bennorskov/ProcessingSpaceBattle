@@ -1,8 +1,23 @@
 class Ship {
+  
+  float bulletsPerSecond = 3;
+  
+  boolean showHitBox = true;
+  float hitBoxWidth = 20;
+  float hitBoxHeight = 40;
+  
+  
   PVector pos, speed, acc;
   float FRICTION = .97;
   float ACC_AMOUNT = .5;
   PImage shipGraphix = new PImage();
+  
+  float lastFire = millis();
+  
+  boolean wrapScreen = false;
+  
+  
+  float leftSide, rightSide, top, bottom;
   
   // –––––––––– // –––––––––– // –––––––––– CONSTRUCTOR
   Ship() {
@@ -27,6 +42,12 @@ class Ship {
     } else {
       image(shipGraphix, 0, 0);
     }
+    if (showHitBox) {
+      stroke(#FF99FF);
+      strokeWeight(4);
+      noFill();
+      rect(0, 0, hitBoxWidth, hitBoxHeight);
+    }
     popMatrix();
   }
   
@@ -35,6 +56,12 @@ class Ship {
     pos.add(speed);
     friction();
     keepOnScreen();
+    
+    //set up hitbox sides
+    leftSide = pos.x -hitBoxWidth*.5;
+    rightSide = pos.x + hitBoxWidth*.5;
+    top = pos.y - hitBoxHeight*.5;
+    bottom = pos.y + hitBoxHeight*.5;
   }
   // –––––––––– // –––––––––– // –––––––––– MOVEMENT
   void moveLeft() {
@@ -61,7 +88,14 @@ class Ship {
     acc = new PVector( 0, 0);
   }
   void keepOnScreen() {
-    pos.x = constrain(pos.x, 0, width);
-    pos.y = constrain(pos.y, 0, height);
+    if (!wrapScreen) {
+      pos.x = constrain(pos.x, 0, width);
+      pos.y = constrain(pos.y, 0, height);
+    } else {
+      if (pos.x > width) pos.x = 0;
+      if (pos.x < 0) pos.x = width;
+      if (pos.y > height) pos.y = 0;
+      if (pos.y < 0) pos.y = height;
+    }
   }
 }

@@ -1,13 +1,20 @@
 class Bullet {
-  PVector pos, speed;
+  
   float hitBoxWidth = 20;
   float hitBoxHeight = 20;
   boolean showHitBox = true;
   float bulletSpeed = 10;
+  
+  //
+  // ––––––––––––––––– Don't edit below here –––––––––––––– //
+  // (well, you can if you want, but it might mess stuff up)
+  //
+  
   PImage bulletGraphix = new PImage();
   boolean isAlive = true;
-  
+  PVector pos, speed;
   float leftSide, rightSide, top, bottom;
+  
   Bullet(float x, float y) {
     pos = new PVector(x, y);
     speed = new PVector(0, -bulletSpeed);

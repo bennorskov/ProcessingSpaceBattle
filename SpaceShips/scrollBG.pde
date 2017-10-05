@@ -1,5 +1,11 @@
 class scrollBG {
+  
   int NUM_STARS = 40;
+  
+  //
+  // ––––––––––––––––– Don't edit below here –––––––––––––– //
+  // (well, you can if you want, but it might mess stuff up)
+  //
 
   PImage backgroundImage = new PImage();
   PVector[] stars = new PVector[NUM_STARS];

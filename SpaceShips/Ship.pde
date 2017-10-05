@@ -1,22 +1,24 @@
 class Ship {
   
-  float bulletsPerSecond = 3;
-  
+  // Easily editable variables:
+  float bulletsPerSecond = 10;
+  float FRICTION = .97;
+  float accelerationAmount = .5;
+  boolean wrapScreen = false;
+
+  // — Hitbox variables:
   boolean showHitBox = true;
   float hitBoxWidth = 20;
   float hitBoxHeight = 40;
   
+  //
+  // ––––––––––––––––– Don't edit below here –––––––––––––– //
+  // (well, you can if you want, but it might mess stuff up)
+  //
   
   PVector pos, speed, acc;
-  float FRICTION = .97;
-  float ACC_AMOUNT = .5;
   PImage shipGraphix = new PImage();
-  
   float lastFire = millis();
-  
-  boolean wrapScreen = false;
-  
-  
   float leftSide, rightSide, top, bottom;
   
   // –––––––––– // –––––––––– // –––––––––– CONSTRUCTOR
@@ -24,6 +26,8 @@ class Ship {
     pos = new PVector(width/2, 650);
     speed = new PVector(0, 0);
     acc = new PVector(0, 0);
+    // you shoulnd't need more than 100, right? 
+    bulletsPerSecond = constrain(bulletsPerSecond, .01, 100);
   }
   // –––––––––– // –––––––––– // –––––––––– DISPLAY
   void display() {
@@ -65,19 +69,19 @@ class Ship {
   }
   // –––––––––– // –––––––––– // –––––––––– MOVEMENT
   void moveLeft() {
-    acc = new PVector(-ACC_AMOUNT, 0);
+    acc = new PVector(-accelerationAmount, 0);
     computeSpeed();
   }
   void moveRight() {
-    acc = new PVector(ACC_AMOUNT, 0);
+    acc = new PVector(accelerationAmount, 0);
     computeSpeed();
   }
   void moveUp() {
-    acc = new PVector(0, -ACC_AMOUNT);
+    acc = new PVector(0, -accelerationAmount);
     computeSpeed();
   }
   void moveDown() {
-    acc = new PVector(0, ACC_AMOUNT);
+    acc = new PVector(0, accelerationAmount);
     computeSpeed();
   }
   void friction() {

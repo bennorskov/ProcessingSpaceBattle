@@ -1,15 +1,15 @@
 class Ship {
 
-  float bulletsPerSecond = 10; //this is capped at 100
+  float bulletsPerSecond = 8; //this is capped at 100
   float FRICTION = .97; //how much the ship slows down
   float accelerationAmount = .6; //how much it moves when arrows are pressed
   boolean wrapScreen = false;
 
-  String nameOfShipImage = "shipcopy.png";
+  String nameOfShipImage = "ship.png";
 
   // — Hitbox variables:
   boolean showHitBox = true;
-  float hitBoxWidth = 20;
+  float hitBoxWidth = 40;
   float hitBoxHeight = 40;
 
   //

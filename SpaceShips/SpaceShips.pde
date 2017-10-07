@@ -6,7 +6,7 @@
  * Sometimes you'll break things. That's ok. That's part of coding.
  */
 
-int numberOfEnemies = 10;
+int numberOfEnemies = 20;
 
 //
 // ––––––––––––––––– Don't edit below here –––––––––––––– //
@@ -33,7 +33,7 @@ void setup() {
   textFont(scoreFont, 32);
 
   for (int i = 0; i<numberOfEnemies; i++) {
-    enemies.add( new Enemy(random(40, width-40), height/2 - i*50) );
+    enemies.add( new Enemy(random(40, width-40), random(height/2)) );
   }
   for (int i = 0; i<keyWasPressed.length; i++) {
     keyWasPressed[i] = false;

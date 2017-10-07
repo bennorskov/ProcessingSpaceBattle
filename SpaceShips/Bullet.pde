@@ -2,10 +2,10 @@ class Bullet {
   
   float hitBoxWidth = 20;
   float hitBoxHeight = 20;
-  boolean showHitBox = true;
+  boolean showHitBox = false;
   float bulletSpeed = 10;
   
-  String nameOfBulletImage = "noPicture";
+  String nameOfBulletImage = "clash2.png";
   
   //
   // ––––––––––––––––– Don't edit below here –––––––––––––– //
@@ -35,7 +35,7 @@ class Bullet {
         stroke(#FF99FF);
         strokeWeight(3);
         noFill();
-        rect(0, 0, hitBoxWidth, hitBoxHeight);
+        rect(pos.x, pos.y, hitBoxWidth, hitBoxHeight);
       }
     } else {
       fill(100);

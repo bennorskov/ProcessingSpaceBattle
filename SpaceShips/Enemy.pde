@@ -3,14 +3,14 @@ class Enemy {
   float hitBoxHeight = 40;
   boolean showHitBox = true;
   
-  float verticalSpeed = 5;
-  float horizontalSpeed = 4;
+  float verticalSpeed = .5;
+  float horizontalSpeed = 5;
   boolean wrapScreen = false;
   
   int pointValue = 5;
   String nameOfEnemyImage = "noPicture";
   
-  int health = 1; 
+  int health = 10; 
   
   //
   // ––––––––––––––––– Don't edit below here –––––––––––––– //
@@ -27,7 +27,7 @@ class Enemy {
     pos = new PVector(x, y);
     float ranNegW = (random(2) > 1) ? -1 : 1;
     float ranNegH = (random(2) > 1) ? -1 : 1;
-    speed = new PVector(verticalSpeed * ranNegW, horizontalSpeed * ranNegH);
+    speed = new PVector(horizontalSpeed * ranNegW, verticalSpeed * ranNegH);
     
     if (nameOfEnemyImage != "noPicture") {
       enemyGraphix = loadImage(nameOfEnemyImage);

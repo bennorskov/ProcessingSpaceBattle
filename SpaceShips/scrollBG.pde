@@ -1,16 +1,23 @@
 class scrollBG {
   
   int NUM_STARS = 40;
+  String backgroundImageName = "noPicture";
   
   //
   // ––––––––––––––––– Don't edit below here –––––––––––––– //
   // (well, you can if you want, but it might mess stuff up)
   //
 
-  PImage backgroundImage = new PImage();
+  PImage backgroundImage;
+  boolean useImage = false;
   PVector[] stars = new PVector[NUM_STARS];
   float[] starSpeeds = new float[NUM_STARS];
   scrollBG() {
+    if (backgroundImageName != "noPicture") {
+      backgroundImage = loadImage(backgroundImageName);
+      useImage = true;
+    }
+    
     for (int i = 0; i<stars.length; i++) {
       stars[i] = new PVector(random(width), -random(height));
       starSpeeds[i] = random(.3, 4);
@@ -18,8 +25,9 @@ class scrollBG {
   }
 
   void displayupdate(int level) {
-    if (backgroundImage.isLoaded()) {
-      image(backgroundImage, 0, 0, width, height);
+    if (useImage) {
+      background(0);
+      image(backgroundImage, width*.5, height*.5);
     } else {
       level=level+1;
       background(0);

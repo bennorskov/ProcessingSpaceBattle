@@ -4,15 +4,18 @@
  * variables that are easily editable are at the top of every file
  * You're welcome to poke through the code and change whatever you'd like
  * Sometimes you'll break things. That's ok. That's part of coding.
-*/
+ */
 
-int numberOfEnemies = 13;
+int numberOfEnemies = 10;
 
 //
 // ––––––––––––––––– Don't edit below here –––––––––––––– //
 // (well, you can if you want, but it might mess stuff up)
 //
 
+
+PFont scoreFont;
+int scoreAmount = 0;
 Ship player;
 scrollBG background;
 Boolean[] keyWasPressed = new Boolean[127];
@@ -22,10 +25,13 @@ ArrayList<Enemy> enemies = new ArrayList();
 // –––––––––– // –––––––––– // –––––––––– SETUP
 void setup() {
   size(600, 900);
-  colorMode(HSB, 360, 100, 100);
   imageMode(CENTER);
   rectMode(CENTER);
   player = new Ship();
+
+  scoreFont = loadFont("Bebas-48.vlw");
+  textFont(scoreFont, 32);
+
   for (int i = 0; i<numberOfEnemies; i++) {
     enemies.add( new Enemy(random(40, width-40), height/2 - i*50) );
   }
@@ -37,27 +43,33 @@ void setup() {
 // –––––––––– // –––––––––– // –––––––––– DRAW
 void draw() {
   background.displayupdate(3);
-  player.display();
-  player.update();
+  if (player.isAlive) {
+    player.display();
+    player.update();
+    handleKeys();
+  }
   moveDisplayEnemies();
-  handleKeys();
   checkBulletHits();
+
+  fill(#0088ff);
+  text("Score: " + scoreAmount, 20, 40);
 }
 
 // –––––––––– // –––––––––– // –––––––––– Enemy HANDLING
 void moveDisplayEnemies() {
-   for( int i = enemies.size()-1; i>=0; i--) {
-     Enemy e = enemies.get(i);
-     if (e.isAlive) {
-       e.move();
-       e.display();
-       if(checkEnemyAgainstPlayer(e, player)) {
-         println("kill player");
-       }
-     } else {
-       enemies.remove(i);
-     }
-   }
+  for ( int i = enemies.size()-1; i>=0; i--) {
+    Enemy e = enemies.get(i);
+    if (e.isAlive) {
+      e.move();
+      e.display();
+      if (checkEnemyAgainstPlayer(e, player)) {
+        player.isAlive = false;
+      }
+    } else {
+      scoreAmount += e.pointValue;
+      enemies.remove(i);
+    }
+  }
 }
 
 // –––––––––– // –––––––––– // –––––––––– BULLET HANDLING
@@ -71,7 +83,7 @@ void spawnBullet() {
 void checkBulletHits() {
   // find all the bullets and see if they hit enemies
   // or go off screen
-  for( int i = bullets.size()-1; i>=0; i--) {
+  for ( int i = bullets.size()-1; i>=0; i--) {
     Bullet b = bullets.get(i);
     if (b.isAlive) {
       b.move();
@@ -81,13 +93,13 @@ void checkBulletHits() {
         b.isAlive = false;
       }
       //check bullets against enemies
-     for( int j = enemies.size()-1; j>=0; j--) {
-       Enemy e = enemies.get(j);
-       if (checkEnemyBulletHit(e, b)) {
-         b.isAlive = false;
-         e.isAlive = false;
-       }
-     }
+      for ( int j = enemies.size()-1; j>=0; j--) {
+        Enemy e = enemies.get(j);
+        if (checkEnemyBulletHit(e, b)) {
+          b.isAlive = false;
+          e.hit();
+        }
+      }
     } else {
       bullets.remove(i);
     }
@@ -100,15 +112,15 @@ void checkBulletHits() {
 // This game is simple, don't over engineer, yo!
 boolean checkEnemyBulletHit(Enemy e, Bullet b) {  
   return !(b.leftSide > e.rightSide || 
-           b.rightSide < e.leftSide || 
-           b.top > e.bottom ||
-           b.bottom < e.top);
+    b.rightSide < e.leftSide || 
+    b.top > e.bottom ||
+    b.bottom < e.top);
 }
 boolean checkEnemyAgainstPlayer( Enemy e, Ship p) {
   return !(p.leftSide > e.rightSide || 
-           p.rightSide < e.leftSide || 
-           p.top > e.bottom ||
-           p.bottom < e.top);
+    p.rightSide < e.leftSide || 
+    p.top > e.bottom ||
+    p.bottom < e.top);
 }
 
 // –––––––––– // –––––––––– // –––––––––– KEY HANDLING

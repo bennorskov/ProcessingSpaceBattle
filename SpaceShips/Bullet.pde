@@ -5,12 +5,15 @@ class Bullet {
   boolean showHitBox = true;
   float bulletSpeed = 10;
   
+  String nameOfBulletImage = "noPicture";
+  
   //
   // ––––––––––––––––– Don't edit below here –––––––––––––– //
   // (well, you can if you want, but it might mess stuff up)
   //
   
-  PImage bulletGraphix = new PImage();
+  PImage bulletGraphix;
+  boolean useImage = false;
   boolean isAlive = true;
   PVector pos, speed;
   float leftSide, rightSide, top, bottom;
@@ -18,10 +21,15 @@ class Bullet {
   Bullet(float x, float y) {
     pos = new PVector(x, y);
     speed = new PVector(0, -bulletSpeed);
+    
+    if (nameOfBulletImage != "noPicture") {
+      bulletGraphix = loadImage(nameOfBulletImage);
+      useImage = true;
+    }
   }
   
   void display() {
-    if (bulletGraphix.isLoaded()) {
+    if (useImage) {
       image(bulletGraphix, pos.x, pos.y);
       if (showHitBox) {
         stroke(#FF99FF);

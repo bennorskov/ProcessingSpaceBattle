@@ -6,8 +6,11 @@
  * Sometimes you'll break things. That's ok. That's part of coding.
  */
 
-int numberOfEnemies = 20;
+int numberOfEnemies = 10;
 
+String nameOfBulletImage = "clash2.png";
+String nameOfEnemyImage = "noPicture";
+  
 //
 // ––––––––––––––––– Don't edit below here –––––––––––––– //
 // (well, you can if you want, but it might mess stuff up)
@@ -18,6 +21,11 @@ PFont scoreFont;
 int scoreAmount = 0;
 Ship player;
 scrollBG background;
+
+PImage enemyGraphix;
+PImage bulletGraphix;
+boolean useBulletImage = false;
+
 Boolean[] keyWasPressed = new Boolean[127];
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Enemy> enemies = new ArrayList();
@@ -31,10 +39,22 @@ void setup() {
 
   scoreFont = loadFont("Bebas-48.vlw");
   textFont(scoreFont, 32);
+  
+  boolean useEnemyPicture = false;
+  if (nameOfEnemyImage != "noPicture") {
+      enemyGraphix = loadImage(nameOfEnemyImage);
+      useEnemyPicture = true;
+  }
 
   for (int i = 0; i<numberOfEnemies; i++) {
-    enemies.add( new Enemy(random(40, width-40), random(height/2)) );
+    enemies.add( new Enemy(random(40, width-40), random(height/2), useEnemyPicture) );
   }
+  
+  if (nameOfBulletImage != "noPicture") {
+      bulletGraphix = loadImage(nameOfBulletImage);
+      useBulletImage = true;
+  }
+  
   for (int i = 0; i<keyWasPressed.length; i++) {
     keyWasPressed[i] = false;
   }
@@ -76,7 +96,7 @@ void moveDisplayEnemies() {
 void spawnBullet() {
   // Make a bullet if the player did not recently fire one 
   if (player.lastFire + 1000/player.bulletsPerSecond < millis()) {
-    bullets.add( new Bullet(player.pos.x, player.pos.y));
+    bullets.add( new Bullet(player.pos.x, player.pos.y, useBulletImage));
     player.lastFire = millis();
   }
 }

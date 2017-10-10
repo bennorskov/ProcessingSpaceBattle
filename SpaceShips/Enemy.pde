@@ -5,11 +5,9 @@ class Enemy {
   
   float verticalSpeed = .5;
   float horizontalSpeed = 5;
-  boolean wrapScreen = false;
+  boolean wrapScreen = true;
   
   int pointValue = 5;
-  String nameOfEnemyImage = "noPicture";
-  
   int health = 10; 
   
   //
@@ -19,20 +17,15 @@ class Enemy {
   
   boolean isAlive = true;
   PVector pos, speed;
-  PImage enemyGraphix;
   boolean useImage = false;
   float leftSide, rightSide, top, bottom;
   
-  Enemy (float x, float y){
+  Enemy (float x, float y, boolean usePic){
     pos = new PVector(x, y);
     float ranNegW = (random(2) > 1) ? -1 : 1;
     float ranNegH = (random(2) > 1) ? -1 : 1;
     speed = new PVector(horizontalSpeed * ranNegW, verticalSpeed * ranNegH);
-    
-    if (nameOfEnemyImage != "noPicture") {
-      enemyGraphix = loadImage(nameOfEnemyImage);
-      useImage = true;
-    }
+    useImage = usePic;
   }
   void display() {
     pushMatrix();

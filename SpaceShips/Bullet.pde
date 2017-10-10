@@ -5,27 +5,20 @@ class Bullet {
   boolean showHitBox = false;
   float bulletSpeed = 10;
   
-  String nameOfBulletImage = "clash2.png";
-  
   //
   // ––––––––––––––––– Don't edit below here –––––––––––––– //
   // (well, you can if you want, but it might mess stuff up)
   //
-  
-  PImage bulletGraphix;
   boolean useImage = false;
   boolean isAlive = true;
   PVector pos, speed;
   float leftSide, rightSide, top, bottom;
   
-  Bullet(float x, float y) {
+  Bullet(float x, float y, boolean usePic) {
     pos = new PVector(x, y);
     speed = new PVector(0, -bulletSpeed);
     
-    if (nameOfBulletImage != "noPicture") {
-      bulletGraphix = loadImage(nameOfBulletImage);
-      useImage = true;
-    }
+    useImage = usePic;
   }
   
   void display() {

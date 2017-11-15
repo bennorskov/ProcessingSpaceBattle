@@ -8,9 +8,9 @@ class Ship {
   String nameOfShipImage = "ship.png";
 
   // — Hitbox variables:
-  boolean showHitBox = true;
-  float hitBoxWidth = 40;
-  float hitBoxHeight = 40;
+  boolean showHitBox = false;
+  float hitBoxWidth = 30;
+  float hitBoxHeight = 30;
 
   //
   // ––––––––––––––––– Don't edit below here –––––––––––––– //

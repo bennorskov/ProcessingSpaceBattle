@@ -26,7 +26,7 @@ PImage enemyGraphix;
 PImage bulletGraphix;
 boolean useBulletImage = false;
 
-Boolean[] keyWasPressed = new Boolean[127];
+boolean[] keyWasPressed = new boolean[127];
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Enemy> enemies = new ArrayList();
 

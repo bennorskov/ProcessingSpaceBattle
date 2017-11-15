@@ -8,7 +8,7 @@ class Enemy {
   boolean wrapScreen = true;
   
   int pointValue = 5;
-  int health = 10; 
+  int health = 2; 
   
   //
   // ––––––––––––––––– Don't edit below here –––––––––––––– //

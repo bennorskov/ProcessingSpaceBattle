@@ -2,7 +2,7 @@ class Bullet {
   
   float hitBoxWidth = 20;
   float hitBoxHeight = 20;
-  boolean showHitBox = false;
+  boolean showHitBox = true;
   float bulletSpeed = 10;
   
   //
